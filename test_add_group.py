@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import time, unittest
 
 def is_alert_present(wd):
@@ -12,7 +13,7 @@ def is_alert_present(wd):
 
 class test_add_group(unittest.TestCase):
     def setUp(self):
-        self.wd = WebDriver(firefox_binary="C:\\Program Files\\FF_ESR\\firefox.exe")
+        self.wd = WebDriver(firefox_binary=FirefoxBinary("C:\\Program Files\\FF_ESR\\firefox.exe"))
         self.wd.implicitly_wait(60)
     
     def test_test_add_group(self):
