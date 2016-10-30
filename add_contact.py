@@ -2,6 +2,7 @@
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import unittest
+from contact import Contact
 
 def is_alert_present(wd):
     try:
@@ -19,7 +20,7 @@ class add_contact(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd)
-        self.create_contact(wd, "FN", "LN", "contact_address", "02", "email@fake.com")
+        self.create_contact(wd, Contact(F_name="FN", L_name="LN", C_address="contact_address", C_phone="02", C_email="email@fake.com"))
         self.return_to_home(wd)
         self.logout(wd)
 
@@ -32,24 +33,24 @@ class add_contact(unittest.TestCase):
         # return to home page
         wd.find_element_by_link_text("home").click()
 
-    def create_contact(self, wd, F_name, L_name, C_address, C_phone, C_email):
+    def create_contact(self, wd, Contact):
         # create contact
         wd.find_element_by_link_text("add new").click()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(F_name)
+        wd.find_element_by_name("firstname").send_keys(Contact.fn)
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(L_name)
+        wd.find_element_by_name("lastname").send_keys(Contact.ln)
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys(C_address)
+        wd.find_element_by_name("address").send_keys(Contact.c_add)
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(C_phone)
+        wd.find_element_by_name("home").send_keys(Contact.c_phone)
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys(C_email)
+        wd.find_element_by_name("email").send_keys(Contact.c_email)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
     def login(self, wd):
