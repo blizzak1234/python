@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-import unittest
 import pytest
-from contact import Contact
-from fixture.application import Application
 
+from fixture.application import Application
+from model.contact import Contact
 
 
 @pytest.fixture
