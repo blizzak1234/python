@@ -22,4 +22,4 @@ class ContactHelper:
         wd.find_element_by_name("email").clear()
         wd.find_element_by_name("email").send_keys(Contact.c_email)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-        self.app.return_to_home()
+        self.app.navigation.return_to_home()
