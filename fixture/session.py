@@ -1,13 +1,12 @@
 class SessionHelper:
 
-    def __init__(self, app, navigation):
+    def __init__(self, app):
         self.app = app
-        self.navigation = navigation
 
     def login(self, username, password):
         wd = self.app.wd
         # login
-        self.navigation.open_home_page()
+        self.app.navigation.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
