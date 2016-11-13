@@ -6,7 +6,6 @@ class SessionHelper:
     def login(self, username, password):
         wd = self.app.wd
         # login
-        self.app.navigation.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -35,6 +34,7 @@ class SessionHelper:
 
     def ensure_login(self, username, password):
         wd = self.app.wd
+        self.app.navigation.open_home_page()
         if self.is_logged_in():
             if self.is_logged_in_as(username):
                 return
