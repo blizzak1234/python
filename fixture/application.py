@@ -9,7 +9,7 @@ from fixture.navigation import NavigationHelper
 class Application:
     def __init__(self):
         self.wd = WebDriver(firefox_binary=FirefoxBinary("C:\\Program Files\\FF_ESR\\firefox.exe"))
-        self.wd.implicitly_wait(5)
+        self.wd.implicitly_wait(1)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)

@@ -6,10 +6,13 @@ class NavigationHelper:
 
     def open_home_page(self):
         wd = self.app.wd
+        if not (wd.current_url.endswith("/addressbook/") and wd.find_element_by_xpath("//div/div[4]/form[2]/em/strong").text == "Select all"):
         # open home page
-        wd.get("http://localhost/addressbook/")
+            wd.get("http://localhost/addressbook/")
 
     def return_to_home(self):
         # return to home page
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not (wd.current_url.endswith("/addressbook/") and wd.find_element_by_xpath("//div/div[4]/form[2]/em/strong").text == "Select all"):
+        # open home page
+            wd.get("http://localhost/addressbook/")
