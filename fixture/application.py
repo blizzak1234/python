@@ -26,3 +26,10 @@ class Application:
             return True
         except:
             return False
+
+    def change_field_value(self, field_name, text):
+        wd = self.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)

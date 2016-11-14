@@ -1,4 +1,6 @@
 from model.contact import Contact
 
 def test_change_contact(app):
-    app.contact.change(Contact(F_name="FN_ch", L_name="LN_ch", C_address="contact_address_ch", C_phone="02_1", C_email="email_ch@fake.com"))
+    if app.contact.count() == False:
+        app.contact.create(Contact(F_name="FN", L_name="LN", C_address="contact_address", C_phone="02", C_email="email@fake.com"))
+    app.contact.change(Contact(F_name="New_name"))
