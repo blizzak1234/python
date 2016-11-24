@@ -18,3 +18,16 @@ def solve(a, b, c):
 solve(1,1,1)
 solve(1,2,1)
 solve(1,5,6)
+
+
+
+l = []
+
+for i in range(-5, 6):
+    l.append(Point(i, i*i))
+print(l)
+
+for el in l:
+    el.y = -el.y
+    print(el)
+
