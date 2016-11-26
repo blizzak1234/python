@@ -2,4 +2,11 @@
 from model.contact import Contact
 
 def test_add_contact(app):
-    app.contact.create(Contact(F_name="FN", L_name="LN", C_address="contact_address", C_phone="02", C_email="email@fake.com"))
+    old_contacts = app.contact.get_contact_list()
+    contact = Contact(F_name="FN", L_name="LN", C_address="contact_address", C_phone="02", C_email="email@fake.com")
+    app.contact.create(contact)
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) + 1 == len(new_contacts)
+    old_contacts.append(contact)
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+
