@@ -1,4 +1,5 @@
 from model.contact import Contact
+from fixture.navigation import NavigationHelper
 
 class ContactHelper:
     def __init__(self, app):
