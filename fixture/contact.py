@@ -47,20 +47,26 @@ class ContactHelper:
         self.app.change_field_value("email", Contact.c_email)
 
 
-    def count(self):
+    def is_contacts_exist(self):
         wd = self.app.wd
         if wd.find_element_by_xpath("//div/div[4]/label/strong/span").text == "0":
             return False
         else:
             return True
 
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("entry"))
+
+    contact_cache = None
 
     def get_contact_list(self):
-        wd = self.app.wd
-        contacts = []
-        for element in wd.find_elements_by_name("entry"):
-            last_name = element.find_element_by_xpath(".//td[2]").text
-            first_name = element.find_element_by_xpath(".//td[3]").text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(F_name=first_name, L_name=last_name, id=id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.contact_cache = []
+            for element in wd.find_elements_by_name("entry"):
+                last_name = element.find_element_by_xpath(".//td[2]").text
+                first_name = element.find_element_by_xpath(".//td[3]").text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cache.append(Contact(F_name=first_name, L_name=last_name, id=id))
+            return list(self.contact_cache)
