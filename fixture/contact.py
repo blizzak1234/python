@@ -15,23 +15,31 @@ class ContactHelper:
         self.contact_cache = None
 
 
-    def delete_contact(self):
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         # submit deletion contact
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
     def select_first_contact(self):
+        self.select_contact_by_index(0)
+
+    def select_contact_by_index(self, index):
         wd = self.app.wd
-        # select contact
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
 
     def change(self, new_contact_data):
         # change contact
         wd = self.app.wd
-        self.select_first_contact()
+        self.change_contact_by_index(0)
+
+
+    def change_contact_by_index(self, index, new_contact_data):
+        # change contact
+        wd = self.app.wd
+        self.select_contact_by_index(index)
         # click edit
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_contact_form(new_contact_data)
@@ -50,8 +58,9 @@ class ContactHelper:
         self.app.change_field_value("email", Contact.c_email)
 
 
-    def is_contacts_exist(self):
+    def are_contacts_exist(self):
         wd = self.app.wd
+        self.app.navigation.return_to_home()
         if wd.find_element_by_xpath("//div/div[4]/label/strong/span").text == "0":
             return False
         else:
@@ -59,6 +68,7 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
+        self.app.navigation.return_to_home()
         return len(wd.find_elements_by_name("entry"))
 
     contact_cache = None
