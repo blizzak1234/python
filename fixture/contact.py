@@ -21,6 +21,7 @@ class ContactHelper:
         # submit deletion contact
         wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
         wd.switch_to_alert().accept()
+        self.contact_cache = None
 
     def select_first_contact(self):
         wd = self.app.wd
@@ -65,6 +66,7 @@ class ContactHelper:
     def get_contact_list(self):
         if self.contact_cache is None:
             wd = self.app.wd
+            self.app.navigation.return_to_home()
             self.contact_cache = []
             for element in wd.find_elements_by_name("entry"):
                 last_name = element.find_element_by_xpath(".//td[2]").text

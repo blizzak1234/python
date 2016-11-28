@@ -6,5 +6,8 @@ def test_delete_contact(app):
         app.contact.create(Contact(F_name="FN", L_name="LN", C_address="contact_address", C_phone="02", C_email="email@fake.com"))
     old_contacts = app.contact.get_contact_list()
     app.contact.delete_contact()
-    app.navigation.return_to_home()
+    #app.navigation.return_to_home()
     assert len(old_contacts) - 1 == app.contact.count()
+    new_contacts = app.contact.get_contact_list()
+    old_contacts[0:1] = []
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
