@@ -12,6 +12,7 @@ class ContactHelper:
         self.fill_contact_form(Contact)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.app.navigation.return_to_home()
+        self.contact_cache = None
 
 
     def delete_contact(self):
@@ -36,6 +37,7 @@ class ContactHelper:
         # click update
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
         #self.app.navigation.return_to_home()
+        self.contact_cache = None
 
     def fill_contact_form(self, Contact):
         wd = self.app.wd
