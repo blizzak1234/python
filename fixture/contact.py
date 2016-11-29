@@ -58,7 +58,10 @@ class ContactHelper:
         self.app.change_field_value("firstname", Contact.fn)
         self.app.change_field_value("lastname", Contact.ln)
         self.app.change_field_value("address", Contact.c_add)
-        self.app.change_field_value("home", Contact.c_phone)
+        self.app.change_field_value("home", Contact.h_phone)
+        self.app.change_field_value("mobile", Contact.m_phone)
+        self.app.change_field_value("work", Contact.w_phone)
+        self.app.change_field_value("phone2", Contact.s_phone)
         self.app.change_field_value("email", Contact.c_email)
 
 
@@ -91,3 +94,17 @@ class ContactHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cache.append(Contact(F_name=first_name, L_name=last_name, id=id))
         return list(self.contact_cache)
+
+    def open_contact_to_edit_by_index(self, index):
+        wd = self.app.wd
+        self.app.open_home_page()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
+
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        self.app.open_home_page()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[6]
+        cell.find_element_by_tag_name("a").click()
