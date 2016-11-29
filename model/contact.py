@@ -26,4 +26,5 @@ class Contact:
 
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.fn == other.fn
+        return (self.id is None or other.id is None or self.id == other.id)\
+               and self.fn == other.fn and self.ln == other.ln
