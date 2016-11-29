@@ -104,14 +104,14 @@ class ContactHelper:
 
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
-        self.app.open_home_page()
+        self.app.navigation.open_home_page()
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
 
     def open_contact_view_by_index(self, index):
         wd = self.app.wd
-        self.app.open_home_page()
+        self.app.navigation.open_home_page()
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[6]
         cell.find_element_by_tag_name("a").click()
@@ -127,7 +127,8 @@ class ContactHelper:
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
-        return Contact(F_name=firstname, L_name=lastname,id=id, H_phone=homephone, W_phone=workphone, M_phone=mobilephone, S_phone=secondaryphone)
+        return Contact(F_name=firstname, L_name=lastname,id=id, H_phone=homephone, W_phone=workphone,
+                       M_phone=mobilephone, S_phone=secondaryphone)
 
 
 
