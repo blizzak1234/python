@@ -44,8 +44,14 @@ class ContactHelper:
         wd = self.app.wd
         self.select_contact_by_index(index)
         # click edit
-        tmp_index = str(index+1)
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + tmp_index + "]/td[8]/a/img").click()
+        #tmp_index = str(index+1)
+        #wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + tmp_index + "]/td[8]/a/img").click()
+        # for row in wd.find_elements_by_name("entry"):
+        #     cells = row.find_elements_by_tag_name("td")
+        #     firstname = cells[2].text
+        #     lastname = cells[1].text
+        #     id = cells[0].find_element_by_tag_name("input").get_attribute("value")
+        wd.find_elements_by_xpath("//form[@name='MainForm']//img[@title='Edit']")[index].click()
         self.fill_contact_form(new_contact_data)
         # click update
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
@@ -95,8 +101,8 @@ class ContactHelper:
             #     id = element.find_element_by_name("selected[]").get_attribute("value")
             for row in wd.find_elements_by_name("entry"):
                 cells = row.find_elements_by_tag_name("td")
-                firstname = cells[1].text
-                lastname = cells[2].text
+                firstname = cells[2].text
+                lastname = cells[1].text
                 id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 all_phones = cells[5].text.splitlines()
                 self.contact_cache.append(Contact(F_name=firstname, L_name=lastname, id=id, H_phone=all_phones[0],

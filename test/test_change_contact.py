@@ -8,7 +8,7 @@ def test_change_contact(app):
                                    C_email="email@fake.com"))
     old_contacts = app.contact.get_contact_list()
     index = randrange(len(old_contacts))
-    contact = Contact(F_name="New_name")
+    contact = Contact(F_name="New_name", L_name="New_LN")
     contact.id = old_contacts[index].id #запоминает айди модифицируемого контакта.
     app.contact.change_contact_by_index(index, contact)
     #app.navigation.return_to_home()
