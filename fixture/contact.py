@@ -1,5 +1,5 @@
 from model.contact import Contact
-from fixture.navigation import NavigationHelper
+import re
 
 class ContactHelper:
     def __init__(self, app):
@@ -44,13 +44,6 @@ class ContactHelper:
         wd = self.app.wd
         self.select_contact_by_index(index)
         # click edit
-        #tmp_index = str(index+1)
-        #wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[" + tmp_index + "]/td[8]/a/img").click()
-        # for row in wd.find_elements_by_name("entry"):
-        #     cells = row.find_elements_by_tag_name("td")
-        #     firstname = cells[2].text
-        #     lastname = cells[1].text
-        #     id = cells[0].find_element_by_tag_name("input").get_attribute("value")
         wd.find_elements_by_xpath("//form[@name='MainForm']//img[@title='Edit']")[index].click()
         self.fill_contact_form(new_contact_data)
         # click update
@@ -104,9 +97,9 @@ class ContactHelper:
                 firstname = cells[2].text
                 lastname = cells[1].text
                 id = cells[0].find_element_by_tag_name("input").get_attribute("value")
-                all_phones = cells[5].text.splitlines()
-                self.contact_cache.append(Contact(F_name=firstname, L_name=lastname, id=id, H_phone=all_phones[0],
-                                                  M_phone=all_phones[1], W_phone=all_phones[2], S_phone=all_phones[3]))
+                all_phones = cells[5].text
+                self.contact_cache.append(Contact(F_name=firstname, L_name=lastname, id=id,
+                                                  all_phones_from_home_page = all_phones))
         return list(self.contact_cache)
 
     def open_contact_to_edit_by_index(self, index):
@@ -134,10 +127,21 @@ class ContactHelper:
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
-        return Contact(F_name=firstname, L_name=lastname,id=id, H_phone=homephone, W_phone=workphone,
+        return Contact(F_name=firstname, L_name=lastname, id=id, H_phone=homephone, W_phone=workphone,
                        M_phone=mobilephone, S_phone=secondaryphone)
 
 
+    def get_contact_from_view_page(self, index):
+        wd = self.app.wd
+        self.open_contact_view_by_index(index)
+        text = wd.find_element_by_id("content").text
+        # ищет по маске "начинается с "Н: " и дальше любые символы до переноса строки. и берет group(1) - это дом. телефон
+        homephone = re.search("H: (.*)", text).group(1)
+        workphone = re.search("W: (.*)", text).group(1)
+        mobilephone = re.search("M: (.*)", text).group(1)
+        secondaryphone = re.search("P: (.*)", text).group(1)
+        return Contact(H_phone=homephone, W_phone=workphone,
+                       M_phone=mobilephone, S_phone=secondaryphone)
 
 
 

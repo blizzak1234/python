@@ -1,6 +1,6 @@
 from model.contact import Contact
 from random import randrange
-from sys import maxsize
+
 
 def test_change_contact(app):
     if app.contact.are_contacts_exist() == False:
