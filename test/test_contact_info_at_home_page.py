@@ -33,11 +33,11 @@ def clear_phones(s):
 
 def merge_phones_like_on_home_page(contact):
     #на входе полная строка.  join - все склеивает
-    return "\n".join(filter (lambda x: x != "", #filter - прореживает удаляя пустые строки.
+    return "\n".join(filter(lambda x: x != "", #filter - прореживает удаляя пустые строки.
                              map(lambda x: clear_phones(x), #map - очищает через clear.
                                  filter(lambda x: x is not None, #отфильтровывает все значения None
                                         [contact.h_phone, contact.m_phone, contact.w_phone, contact.s_phone]))))
 
 
 def merge_emails_like_on_home_page(contact):
-    return "\n".join([contact.c_email, contact.c_email2, contact.c_email3])
+    return "\n".join(filter(lambda x: x != "", [contact.c_email, contact.c_email2, contact.c_email3]))
