@@ -91,7 +91,7 @@ class GroupHelper:
                 text = element.text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.group_cache.append(Group(name=text, id=id))
-            return list(self.group_cache) #возвращаем кэш. Лист для того чтобы кэш был неизменным. Если его испортили снаружи
+        return list(self.group_cache) #возвращаем кэш. Лист для того чтобы кэш был неизменным. Если его испортили снаружи
 
 
 
