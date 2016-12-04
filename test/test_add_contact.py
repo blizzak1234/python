@@ -25,9 +25,9 @@ def random_string_add(prefix, maxlen):
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-testdata = [Contact(F_name=random_string("fn", 5), L_name=random_string("ln", 5),
-                    C_address=random_string_add("addr", 5),H_phone=random_string_phone("home_", 7),
-                    M_phone=random_string_phone("mobile_", 10), W_phone=random_string_phone("work_", 8),
+testdata = [Contact(F_name=random_string("fn_", 5), L_name=random_string("ln_", 5),
+                    C_address=random_string_add("addr", 5), H_phone=random_string_phone("hom_", 7),
+                    M_phone=random_string_phone("mob_", 10), W_phone=random_string_phone("wor_", 8),
                     S_phone=random_string_phone("sec_", 9), C_email=random_string_email("email_", 4))]
 
 
