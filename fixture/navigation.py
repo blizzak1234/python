@@ -15,4 +15,4 @@ class NavigationHelper:
         wd = self.app.wd
         if not (wd.current_url.endswith("/addressbook/") and wd.find_element_by_xpath("//div/div[4]/form[2]/em/strong").text == "Select all"):
         # open home page
-            wd.get("http://localhost/addressbook/")
+            wd.get(self.app.base_url)
