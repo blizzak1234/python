@@ -16,6 +16,7 @@ def app(request):
     global target
     browser = request.config.getoption("--browser")
     if target is None:
+        # определяем путь конф.файла (target.json) относильного директории проекта
         config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), request.config.getoption("--target")) #путь к файлу
         with open(config_file) as f:
             target = json.load(f)
