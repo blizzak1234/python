@@ -15,7 +15,7 @@ except getopt.GetoptError as err:
     sys.exit(2)
 
 # указываем дефольные значения
-n = 1
+n = 2
 f = "data/contacts.json"
 
 for o, a in opts:
@@ -28,7 +28,7 @@ for o, a in opts:
 
 #случайные строки для имени
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + " "*10
+    symbols = string.ascii_letters + "-"*10
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 #случайные строки для имейла
@@ -43,7 +43,7 @@ def random_string_phone(prefix, maxlen):
 
 #случайные строки для адреса
 def random_string_add(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + " "*10
+    symbols = string.ascii_letters + string.digits + "-"*10
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
@@ -53,13 +53,6 @@ testdata = [Contact(F_name=random_string("fn_", 5), L_name=random_string("ln_", 
                     S_phone=random_string_phone("sec_", 9), C_email=random_string_email("email_", 4))
             for i in range(n)
             ]
-
-
-
-# testdata = [Group(name="", header="", footer="")] + [
-#     Group(name=random_string("name", 10), header=random_string("header", 20), footer=random_string("footer", 20))
-#     for i in range(n) #цикл для генерации случайных данных. 5 раз. то есть все данные для теста будут состоять из одной пустой группы и 5 групп со случ. данными
-# ]
 
 # сохраняем сгенерированные данные в фаил
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)  # путь к файлу
