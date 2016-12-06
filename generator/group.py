@@ -2,7 +2,7 @@ from model.group import Group
 import random
 import string
 import os.path #для работы с путями до файлов
-import json
+import jsonpickle
 import getopt # для использования опций из командной строки
 import sys #для получения доступа к этим опциям
 
@@ -15,8 +15,8 @@ except getopt.GetoptError as err:
     sys.exit(2)
 
 # указываем дефольные значения
-n = 5
-f = "data/group.json"
+n = 2
+f = "data/groups.json"
 
 for o, a in opts:
     if o == "-n": #если название опции равно -n
@@ -41,4 +41,6 @@ file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)  # пу
 # открываем фаил
 with open(file, "w") as out:
     # dumps - превращает данные в строку вида json
-    out.write(json.dumps(testdata, default=lambda x: x.__dict__, indent=2)) #т.к. json не знает как преобразовывать объъекты типа group в словарь, мы ему подскажем - лямбда функцией. он сначала выполнит ее, а потом будет преобразовывать
+    #out.write(json.dumps(testdata, default=lambda x: x.__dict__, indent=2)) #т.к. json не знает как преобразовывать объъекты типа group в словарь, мы ему подскажем - лямбда функцией. он сначала выполнит ее, а потом будет преобразовывать
+    jsonpickle.set_encoder_options("json", indent=2)
+    out.write(jsonpickle.encode(testdata))
