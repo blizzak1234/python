@@ -1,15 +1,12 @@
 # данный фаил позволяет использовать фикстуру во всех вспомогательных методах
 import pytest
 from fixture.application import Application
-import jsonpickle
 import json
 import os.path
-<<<<<<< HEAD
 from fixture.db import DbFixture
-=======
 import importlib
 import jsonpickle
->>>>>>> f39b12fad0daf873b4bf7dc31f76a6c59d3b9485
+
 
 
 fixture = None
