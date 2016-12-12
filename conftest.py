@@ -44,7 +44,9 @@ def db(request):
     request.addfinalizer(fin)
     return dbfixture
 
-
+@pytest.fixture
+def check_ui(request):
+    return request.config.getoption("--check_ui")
 
 
 
@@ -61,6 +63,8 @@ def stop(request):
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="firefox")
     parser.addoption("--target", action="store", default="target.json")
+    parser.addoption("--check_ui", action="store_true")
+
 
 # функция, помогающая питону определять какой фаил с тестовыми данными использовать. пробегает по именам и определять какой фаил брать
 def pytest_generate_tests(metafunc):

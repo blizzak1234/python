@@ -1,12 +1,17 @@
 import mysql.connector
+from fixture.orm import ORMFixture
 
-connection = mysql.connector.connect(host="127.0.0.1", database="addressbook", user="root", password="")
+db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 
 try:
-    cursor = connection.cursor()
-    cursor.execute("select * from group_list") # курсор стартует на таблице груплист
+    l = db.get_contact_list()
+    # cursor = connection.cursor()
+    # cursor.execute("select * from group_list") # курсор стартует на таблице груплист
     # бежит по строкам и извлекает всю информацию в список
-    for row in cursor.fetchall():
-        print(row)
+    # for row in cursor.fetchall():
+    #     print(row)
+    for item in l:
+        print(item)
+    print(len(l))
 finally:
-    connection.close()
+    pass
