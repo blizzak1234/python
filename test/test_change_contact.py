@@ -10,6 +10,7 @@ def test_change_contact(app, db, check_ui):
     old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
     contact_info = Contact(F_name="New_name", L_name="New_LN")
+    contact_info.id = contact.id
     #contact.id = old_contacts[index].id #запоминает айди модифицируемого контакта.
     app.contact.change_contact_by_id(contact.id, contact_info)
     #app.navigation.return_to_home()
