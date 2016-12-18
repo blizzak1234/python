@@ -38,7 +38,6 @@ class ContactHelper:
         wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
 
-
     def change(self, new_contact_data):
         # change contact
         self.change_contact_by_index(0)
@@ -51,6 +50,18 @@ class ContactHelper:
         self.select_contact_by_index(index)
         # click edit
         wd.find_elements_by_xpath("//form[@name='MainForm']//img[@title='Edit']")[index].click()
+        self.fill_contact_form(new_contact_data)
+        # click update
+        wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
+        #self.app.navigation.return_to_home()
+        self.contact_cache = None
+
+    def change_contact_by_id(self, id, new_contact_data):
+        # change contact
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        # click edit
+        wd.find_element_by_xpath("//form[@name='MainForm']//a[contains(@href,'edit.php?id=%s')]" % id).click()
         self.fill_contact_form(new_contact_data)
         # click update
         wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
