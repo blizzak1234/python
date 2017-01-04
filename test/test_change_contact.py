@@ -1,5 +1,6 @@
 from model.contact import Contact
 import random
+import re
 
 
 def test_change_contact(app, db, check_ui):
@@ -20,5 +21,10 @@ def test_change_contact(app, db, check_ui):
     old_contacts.remove(contact)
     old_contacts.append(contact_info)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
-    # if check_ui:
-    #     assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
+    if check_ui:
+        def clear(x):
+            return re.sub("\s+", " ", x)
+        def clean(contact):
+            return Contact(id=contact.id, F_name=clear(contact.fn.strip()), L_name=clear(contact.ln.strip()))
+        new_contacts = map(clean, new_contacts)
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
